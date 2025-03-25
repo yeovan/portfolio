@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JOVAN</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="/hero1.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Intersection Observer for section fade-in animations
+      const sections = document.querySelectorAll("section");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+  
+      // Auto-play horizontal carousel
+      let index = 0;
+      const gallery = document.querySelector(".portfolio-gallery");
+      const projects = document.querySelectorAll(".project");
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  
+      if (!isMobile) {
+        setInterval(() => {
+          index++;
+          if (index >= projects.length) index = 0;
+          gallery.style.transform = `translateX(-${index * 320}px)`;
+        }, 3000);
+      }
+  
+      // Open a modal when a project is clicked to show its image and title
+      const modal = document.querySelector(".modal");
+      const modalContent = document.querySelector(".modal-content");
+  
+      projects.forEach((project) => {
+        project.addEventListener("click", () => {
+          const img = project.querySelector("img");
+          const titleElem = project.querySelector(".project-title");
+          const titleText = titleElem ? titleElem.innerText : "Project";
+  
+          modal.style.display = "flex";
+          modalContent.innerHTML = `
+            <span class="modal-close">&times;</span>
+            <img src="${img.src}" alt="${titleText}" style="max-width:80%; display:block; margin: 0 auto;" />
+            <h2 style="margin:20px;">${titleText}</h2>
+          `;
+        });
+      });
+  
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("modal-close") || e.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+
+      // Mobile Navigation Toggle
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navMenu = document.querySelector("nav ul");
+      
+      menuToggle.addEventListener("click", function() {
+        navMenu.classList.toggle("active");
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener("click", function(event) {
+        if (!menuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+          navMenu.classList.remove("active");
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Portfolio</h1>
+      <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Activities</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h2 class="hero-subtitle">
+        <span>Hello,</span>
+        <span>I</span>
+        <span>am</span>
+      </h2>
+      <h1 class="hero-title">
+        <span>Mark</span>
+        <span>Jovan</span>
+        <span>Gicos</span>
+      </h1>
+      <h3 class="hero-description">
+        <span>I</span>
+        <span>am</span>
+        <span>a</span>
+        <span>3rd</span>
+        <span>Year</span>
+        <span>IT</span>
+        <span>Student</span>
+      </h3>
+    </div>
+  </section>
+  
+  
+  <!-- About Section with Photo -->
+  <section id="about" class="about">
+    <div class="about-container">
+      <div class="about-image">
+        <img src="/phoenix-valorant.jpg" alt="My Photo" />
+      </div>
+      <div class="about-content">
+        <h2>About Me</h2>
+        <p>I'm a College Student taking Bachelor of Science in Information Technology at Cavite 
+            State University of Silang Cavite, currently a 3rd Year Student. I lived in Tartaria 
+            Silang Cavite located near Adventist University. One of my hobby is watching movies 
+            when I have free time.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Section with Carousel -->
+  <section id="portfolio" class="portfolio">
+    <div class="portfolio-header">
+      <h2 class="project-title1">My <span>Activities</span></h2>
+    </div>
+    <div><a href="projects.html" class="see-more">See All ></a></div>
+    <div class="carousel-container">
+      <div class="portfolio-gallery">
+        <div class="project">
+          <img src="/1.jpg" alt="Project 1" />
+          <div class="project-title">Quiz 1 | 02/25/2025</div>
+        </div>
+        <div class="project">
+          <img src="/2.jpg" alt="Project 2" />
+          <div class="project-title">Quiz 2 | 02/27/2025</div>
+        </div>
+        <div class="project">
+          <img src="/3.jpg" alt="Project 3" />
+          <div class="project-title">Quiz 3 | 03/04/2025</div>
+        </div>
+        <div class="project">
+          <img src="/4.jpg" alt="Project 4" />
+          <div class="project-title">Quiz 4 | 03/06/2025</div>
+        </div>
+        <div class="project">
+          <img src="/5.jpg" alt="Project 5" />
+          <div class="project-title">Quiz 5 | 03/11/2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Modal (optional for project details) -->
+  <div class="modal">
+    <div class="modal-content">
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="border-footer"></div>
+  <footer>
+    
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <div class="footer-text">
+      <img src="/hero1.png" alt="footer-logo" class="footer-logo">
+      <p>&copy; 2025, Mark Jovan Gicos, Bachelor of Science in Information Technology.</p>
+    </div>
+  </footer>
+  
+</body>
+</html>

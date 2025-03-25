@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  @font-face {
+      font-family: 'Beaufort for LOL';
+      src: url('/fonts/BeaufortForLOL.woff2') format('woff2'),
+          url('/fonts/BeaufortForLOL.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+  }
+  
+  body {
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Header & Navigation */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    background-color: #000;
+    border-bottom: 2px solid #FFA500;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* For uppercases and Font style */
+  nav h1, nav ul li a, .hero-content h1, .about-content h2, .project-title, .project-title1 {
+      font-family: 'Beaufort for LOL', 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+  }
+  
+  .menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav h1 {
+    color: white;
+  }
+  
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+  }
+  
+  nav ul li {
+    margin: auto;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  nav ul li a:hover {
+    color: #ff6600;
+    border-bottom: 2px solid #FFA500;
+    border-radius: 3px;
+    background: gray;
+    transform: scale(1.1);
+  }
+  
+  /* Section Base (for Hero sections only) */
+  section {
+    /* Remove fixed height for sections with dynamic content */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 10%;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Gallery / Portfolio Section */
+  .portfolio-gallery {
+    /* Allow the section to auto-size based on content */
+    height: auto;
+    padding: 100px 5% 40px;  /* Added top padding to account for fixed header */
+    text-align: center;
+    background: url(/background3.jpg);
+  }
+  
+  .portfolio-title {
+    font-size: 32px;
+    text-transform: uppercase;
+    color: #FFA500;
+  }
+  
+  .portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 30px auto;
+  }
+  
+  .portfolio-card {
+    background-color: #1F2326;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-align: center;
+  }
+  
+  .portfolio-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .portfolio-card img {
+    width: 100%;
+    display: block;
+    height: auto;
+    position: relative;
+    aspect-ratio: 1 / 1;  /* Ensures the container is square */
+  }
+  
+  .portfolio-name {
+    background-color: #000;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 0;
+  }
+
+  .portfolio-name:hover {
+    color: #ff6600;
+  }
+  
+  /* Footer & Social Icons */
+  footer {
+    width: 100%;
+    text-align: center;
+    padding: 40px 0;
+    background: #000;
+    color: #fff;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #222;
+    color: #fff;
+    font-size: 18px;
+    transition: all 0.3s;
+  }
+  
+  .social-icons a:hover {
+    background: #ff6600;
+    transform: scale(1.2);
+  }
+  
+  .footer-text {
+    font-size: 12px;
+    color: #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .footer-logo {
+    display: block;
+    margin: 50px auto;
+    width: 250px;
+  }
+
+  /* Modal*/
+  /* Modal Background */
+  .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85); /* Darker background for better contrast */
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        backdrop-filter: blur(8px); /* Adds a blur effect for a modern look */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background: #111; /* Darker color for a sleek look */
+        color: white;
+        border-radius: 12px;
+        padding: 20px;
+        max-width: 90%;
+        max-height: 80%;
+        overflow-y: auto;
+        text-align: center;
+        box-shadow: 0px 0px 15px rgba(255, 165, 0, 0.4);
+        position: relative;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* Close Button */
+    .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #FFA500;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .modal-close:hover {
+        color: white;
+    }
+
+    /* Image Styling */
+    .modal-content img {
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+
+  
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+        from {
+        opacity: 0;
+        transform: translateY(-20px);
+        }
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    }
+  
+  /* Responsive Styles */
+    @media (max-width: 768px) {
+        nav ul {
+            flex-direction: column;
+            text-align: right;
+        }
+        nav ul li a {
+            flex-direction: column;
+            text-align: right;
+            }
+    
+        section {
+        padding: 0 5%;
+        }
+    
+        /* Update grid for smaller screens */
+        .portfolio-container {
+        grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .portfolio-gallery {
+        flex-direction: column;
+        transform: none !important;
+        }
+
+        .project {
+            min-width: 100%;
+            margin: 10px 0;
+        }
+    }
+        
+    @media (hover: hover) and (pointer: fine) {
+        nav ul li a:hover {
+        color: #ff6600;
+        border-bottom: 2px solid #FFA500;
+        border-radius: 3px;
+        background: gray;
+        transform: scale(1.1);
+        }
+    }
+    
+    /* Disable hover effects on touch devices */
+    @media (hover: none) {
+        nav ul li a {
+        pointer-events: auto;
+        background: none !important;
+        color: white !important;
+        border-bottom: none !important;
+        transform: none !important;
+        }
+        .social-icons a {
+        pointer-events: auto;
+        background: none !important;
+        color: white !important;
+        border-bottom: none !important;
+        transform: none !important;
+        }
+    }
+  

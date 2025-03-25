@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Activities</title>
+  <link rel="stylesheet" href="projects.css">
+  <link rel="icon" type="image/png" href="/hero1.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Intersection Observer for section fade-in animations
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        } else {
+          entry.target.classList.remove("visible");
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Auto-play horizontal carousel (if desired; grid layout might not need this)
+    const gallery = document.querySelector(".portfolio-container");
+    // Corrected the class name to select all portfolio cards
+    const projects = document.querySelectorAll(".portfolio-card");
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (!isMobile && gallery) {
+      setInterval(() => {
+        index++;
+        if (index >= projects.length) index = 0;
+        gallery.style.transform = `translateX(-${index * 320}px)`;
+      }, 3000);
+    }
+
+    // Open a modal when a project is clicked to show its image and title
+    const modal = document.querySelector(".modal");
+    const modalContent = document.querySelector(".modal-content");
+    projects.forEach((project) => {
+      project.addEventListener("click", () => {
+        const img = project.querySelector("img");
+        const titleElem = project.querySelector(".portfolio-name");
+        const titleText = titleElem ? titleElem.innerText : "Project";
+        modal.style.display = "flex";
+        modalContent.innerHTML = `
+          <span class="modal-close">&times;</span>
+          <img src="${img.src}" alt="${titleText}" style="max-width:80%; display:block; margin: 0 auto;" />
+          <h2 style="margin:20px;">${titleText}</h2>
+        `;
+      });
+    });
+    
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("modal-close") || e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // Mobile Navigation Toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector("nav ul");
+    if(menuToggle){
+      menuToggle.addEventListener("click", function() {
+        navMenu.classList.toggle("active");
+      });
+    }
+    
+    // Close menu when clicking outside
+    document.addEventListener("click", function(event) {
+      if (menuToggle && !menuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+        navMenu.classList.remove("active");
+      }
+    });
+  });
+</script>
+<body>
+    <!-- Navigation Bar -->
+  <header>
+    <nav>
+      <h1>Portfolio</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Gallery/Activities -->
+  <section class="portfolio-gallery">
+    <h1 class="portfolio-title">My Activities</h1>
+    <div class="portfolio-container">
+      <div class="portfolio-card">
+        <img src="/1.jpg" alt="Project">
+        <div class="portfolio-name">Quiz 1 | 02/25/2025</div>
+      </div>
+      <div class="portfolio-card">
+        <img src="/2.jpg" alt="Project">
+        <div class="portfolio-name">Quiz 2 | 02/27/2025</div>
+      </div>
+      <div class="portfolio-card">
+        <img src="/3.jpg" alt="Project">
+        <div class="portfolio-name">Quiz 3 | 03/04/2025</div>
+      </div>
+      <div class="portfolio-card">
+        <img src="/4.jpg" alt="Project">
+        <div class="portfolio-name">Quiz 4 | 03/06/2025</div>
+      </div>
+      <div class="portfolio-card">
+        <img src="/5.jpg" alt="Project">
+        <div class="portfolio-name">Quiz 5 | 03/11/2025</div>
+      </div>
+      <!-- Repeat for more cards if needed -->
+    </div>
+  </section>
+
+  <!-- Modal (for project details) -->
+  <div class="modal">
+    <div class="modal-content"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <div class="footer-text">
+      <img src="/hero1.png" alt="footer-logo" class="footer-logo">
+      <p>&copy; 2025, Mark Jovan Gicos, Bachelor of Science in Information Technology.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -115,7 +115,7 @@
     height: auto;
     padding: 100px 5% 40px;  /* Added top padding to account for fixed header */
     text-align: center;
-    background: url(/background3.jpg);
+    background: url(images/background3.jpg);
   }
   
   .portfolio-title {
